@@ -1,0 +1,49 @@
+{
+  "name": "typograf-cli",
+  "description": "CLI for Typograf",
+  "version": "1.0.0",
+  "author": {
+    "name": "Denis Seleznev",
+    "email": "hcodes@yandex.ru",
+    "url": "https://github.com/typograf/typograf-cli"
+  },
+  "bin": {
+    "typograf": "./bin/cli.js"
+  },
+  "homepage": "https://github.com/typograf",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/typograf/typograf-cli.git"
+  },
+  "keywords": [
+    "typo",
+    "text",
+    "typograf",
+    "typographer",
+    "typography"
+  ],
+  "engines": {
+    "node": ">= 0.10"
+  },
+  "files": [
+    "dist",
+    "docs",
+    "bin",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "typograf": "*",
+    "commander": "~2.8.1",
+    "isutf8": "~1.0.10"
+  },
+  "devDependencies": {
+    "jscs": "~2.1.0",
+    "jshint": "~2.8.0"
+  },
+  "scripts": {
+    "test": "npm run-script jshint && npm run-script jscs",
+    "jscs": "./node_modules/.bin/jscs .",
+    "jshint": "./node_modules/.bin/jshint ."
+  }
+}
