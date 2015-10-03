@@ -1,4 +1,4 @@
-CLI для Типографа
+Командный интерфейс для Типографа
 =============================
 [![NPM version](https://img.shields.io/npm/v/typograf-cli.svg?style=flat)](https://www.npmjs.com/package/typograf-cli)
 [![NPM downloads](https://img.shields.io/npm/dm/typograf-cli.svg?style=flat)](https://www.npmjs.com/package/typograf-cli)
