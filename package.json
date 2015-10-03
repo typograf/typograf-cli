@@ -38,7 +38,7 @@
     "isutf8": "~1.0.10"
   },
   "devDependencies": {
-    "jscs": "~2.1.0",
+    "jscs": "~2.2.1",
     "jshint": "~2.8.0"
   },
   "scripts": {
