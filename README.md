@@ -1,4 +1,4 @@
-Типограф для командной строки
+CLI для Типографа
 =============================
 [![NPM version](https://img.shields.io/npm/v/typograf-cli.svg?style=flat)](https://www.npmjs.com/package/typograf-cli)
 [![NPM downloads](https://img.shields.io/npm/dm/typograf-cli.svg?style=flat)](https://www.npmjs.com/package/typograf-cli)
@@ -6,7 +6,7 @@
 [![Build Status](https://img.shields.io/appveyor/ci/hcodes/typograf-cli/dev.svg?style=flat)](https://ci.appveyor.com/project/hcodes/typograf-cli)
 [![Coverage Status](https://img.shields.io/coveralls/typograf/typograf-cli.svg?style=flat)](https://coveralls.io/r/typograf/typograf-cli)
 
-[![Dependency Status](https://img.shields.io/david/typograf/typograf.svg?style=flat)](https://david-dm.org/typograf/typograf) [![devDependency Status](https://img.shields.io/david/dev/typograf/typograf.svg?style=flat)](https://david-dm.org/typograf/typograf#info=devDependencies)
+[![Dependency Status](https://img.shields.io/david/typograf/typograf-cli.svg?style=flat)](https://david-dm.org/typograf/typograf) [![devDependency Status](https://img.shields.io/david/dev/typograf/typograf-cli.svg?style=flat)](https://david-dm.org/typograf/typograf-cli#info=devDependencies)
 
 ### Использование
 ```
