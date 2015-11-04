@@ -5,7 +5,7 @@
 [![Build Status](https://img.shields.io/travis/typograf/typograf-cli.svg?style=flat)](https://travis-ci.org/typograf/typograf-cli)
 [![Build Status](https://img.shields.io/appveyor/ci/hcodes/typograf-cli/master.svg?style=flat)](https://ci.appveyor.com/project/hcodes/typograf-cli)
 
-[![Dependency Status](https://img.shields.io/david/typograf/typograf-cli.svg?style=flat)](https://david-dm.org/typograf/typograf) [![devDependency Status](https://img.shields.io/david/dev/typograf/typograf-cli.svg?style=flat)](https://david-dm.org/typograf/typograf-cli#info=devDependencies)
+[![Dependency Status](https://img.shields.io/david/typograf/typograf-cli.svg?style=flat)](https://david-dm.org/typograf/typograf-cli) [![devDependency Status](https://img.shields.io/david/dev/typograf/typograf-cli.svg?style=flat)](https://david-dm.org/typograf/typograf-cli#info=devDependencies)
 
 ### Использование
 ```
