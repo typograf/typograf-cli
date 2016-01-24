@@ -17,7 +17,7 @@ npm install typograf-cli -g
 
 `typograf -l en my_file.txt` — типографировать файл по английским правилам
 
-`typograf -l ru -d ru/punctuation/quote -e ru/optaling/* my_file.txt > new_my_file` — типографировать файл с отключенным правилом `ru/punctuation/quot` и включенными правилами `ru/optaling/*`
+`typograf -l ru -d "ru/punctuation/quote,common/nbsp/dpi" -e "ru/optaling/*" my_file.txt > new_my_file` — типографировать файл с отключенными и включенными правилами.
 
 ## [Лицензия](./LICENSE.md)
 MIT License
