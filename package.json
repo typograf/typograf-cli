@@ -24,7 +24,7 @@
     "typography"
   ],
   "engines": {
-    "node": ">= 0.12"
+    "node": ">= 4.0"
   },
   "files": [
     "bin",
@@ -33,11 +33,12 @@
   ],
   "dependencies": {
     "commander": "2.9.x",
+    "exit": "^0.1.2",
     "isutf8": "2.x",
     "typograf": "*"
   },
   "devDependencies": {
-    "eslint": "2.11.x"
+    "eslint": "3.5.x"
   },
   "scripts": {
     "eslint": "./node_modules/.bin/eslint .",

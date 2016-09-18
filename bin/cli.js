@@ -1,19 +1,23 @@
 #!/usr/bin/env node
 
-var fs = require('fs'),
-    isutf8 = require('isutf8'),
-    program = require('commander'),
-    TypografObj = require('typograf'),
-    typograf = new TypografObj(),
-    langs = TypografObj._langs,
-    modes = ['digit', 'name', 'default'];
+'use strict';
+
+const fs = require('fs');
+const isutf8 = require('isutf8');
+const exit = require('exit');
+const program = require('commander');
+const TypografObj = require('typograf');
+
+const typograf = new TypografObj();
+const langs = TypografObj._langs;
+const modes = ['digit', 'name', 'default'];
 
 program
     .version(require('../package.json').version)
     .usage('[options] <file>')
     .option('-d, --disable <rules>', 'disable rules (separated by commas)')
     .option('-e, --enable <rules>', 'enable rules (separated by commas)')
-    .option('-l, --lang <lang>', 'set language rules: ' + '"' + langs.join('", "') + '"')
+    .option(`-l, --lang <lang>`, `set language rules: "${langs.join('", "')}"`)
     .option('--mode <mode>', 'HTML entities as: "digit" - &#160;, "name" - &nbsp, "default" - UTF-8 symbols')
     .parse(process.argv);
 
@@ -34,21 +38,21 @@ if(process.stdin.isTTY && !program.args.length) {
 
 if(!program.lang) {
     console.error('Error: required parameter lang.');
-    process.exit(1);
+    exit(1);
 }
 
 if(langs.indexOf(program.lang) === -1) {
-    console.error('Error: language "' + program.lang + '" is not supported.');
-    process.exit(1);
+    console.error(`Error: language "${program.lang}" is not supported.`);
+    exit(1);
 }
 
 if(modes.indexOf(program.mode || 'default') === -1) {
-    console.error('Error: mode "' + program.mode + '" is not supported.');
-    process.exit(1);
+    console.error(`Error: mode "${program.mode}" is not supported.`);
+    exit(1);
 }
 
-var file = program.args[0],
-    buf = '';
+const file = program.args[0];
+let buf = '';
 
 if(process.stdin.isTTY) {
     if(fs.existsSync(file) && fs.statSync(file).isFile()) {
@@ -56,20 +60,20 @@ if(process.stdin.isTTY) {
         if(isutf8(buf)) {
             printText(buf);
         } else {
-            console.error(file + ': is not utf-8');
-            process.exit(1);
+            console.error(`${file}: is not UTF-8`);
+            exit(1);
         }
     } else {
-        console.error(file + ': no such file');
-        process.exit(1);
+        console.error(`${file}: no such file`);
+        exit(1);
     }
 
-    process.exit(0);
+    exit(0);
 } else {
     process.stdin.setEncoding('utf8');
 
     process.stdin.on('readable', function() {
-        var chunk = process.stdin.read();
+        const chunk = process.stdin.read();
         if(chunk !== null) {
             buf += chunk;
         }
@@ -77,6 +81,6 @@ if(process.stdin.isTTY) {
 
     process.stdin.on('end', function() {
         printText(buf);
-        process.exit(0);
+        exit(0);
     });
 }
