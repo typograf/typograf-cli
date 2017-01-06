@@ -29,7 +29,7 @@ function printText(text) {
     process.stdout.write(typograf
         .disable(getRules(program.disable))
         .enable(getRules(program.enable))
-        .execute(text, {lang: program.lang, mode: program.mode}));
+        .execute(text, {lang: program.lang, htmlEntity: {type: program.mode}}));
 }
 
 if(process.stdin.isTTY && !program.args.length) {
