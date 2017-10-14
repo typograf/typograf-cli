@@ -9,15 +9,15 @@
 ```
 npm install typograf-cli -g
 ```
-`typograf` — вывод справки
+`typograf` — вывод справки
 
-`typograf -l ru my_file.txt` — русская типографика
+`typograf -l ru my_file.txt` — русская типографика
 
-`typograf -l ru,en-US my_file.txt` — русская типографика, в тексте есть английские слова
+`typograf -l ru,en-US my_file.txt` — русская типографика, в тексте есть английские слова
 
-`typograf -l en-US my_file.txt` — американская типографика
+`typograf -l en-US my_file.txt` — американская типографика
 
-`typograf -l ru -d "ru/punctuation/quote,common/nbsp/dpi" -e "ru/optalign/*" my_file.txt > new_my_file` — типографировать файл с отключенными и включенными правилами.
+`typograf -l ru -d "ru/punctuation/quote,common/nbsp/dpi" -e "ru/optalign/*" my_file.txt > new_my_file` — типографировать файл с отключенными и включенными правилами.
 
 ## [Лицензия](./LICENSE.md)
 MIT License
