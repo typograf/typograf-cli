@@ -1,7 +1,7 @@
 {
   "name": "typograf-cli",
   "description": "CLI for Typograf",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "author": {
     "name": "Denis Seleznev",
     "email": "hcodes@yandex.ru",
@@ -30,7 +30,9 @@
   "files": [
     "bin",
     "README.md",
-    "LICENSE"
+    "CHANGELOG.md",
+    "LICENSE.md",
+    "typograf.json"
   ],
   "dependencies": {
     "chalk": "^2.4.1",
