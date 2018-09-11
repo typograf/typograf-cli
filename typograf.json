@@ -1,0 +1,11 @@
+{
+  "locale": ["ru", "en-US"],
+  "disableRule": [],
+  "enableRule": [],
+  "onlyJsonKeys": [],
+  "ignoreJsonKeys": [],
+  "htmlEntity": {
+    "type": "default",
+    "onlyInvisible": false
+  }
+}

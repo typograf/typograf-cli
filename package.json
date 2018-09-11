@@ -1,7 +1,7 @@
 {
   "name": "typograf-cli",
   "description": "CLI for Typograf",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "author": {
     "name": "Denis Seleznev",
     "email": "hcodes@yandex.ru",
@@ -17,6 +17,7 @@
     "url": "git://github.com/typograf/typograf-cli.git"
   },
   "keywords": [
+    "cli",
     "typo",
     "text",
     "typograf",
@@ -24,7 +25,7 @@
     "typography"
   ],
   "engines": {
-    "node": ">= 4.0"
+    "node": ">= 8.0"
   },
   "files": [
     "bin",
@@ -32,13 +33,14 @@
     "LICENSE"
   ],
   "dependencies": {
-    "commander": "2.9.x",
+    "chalk": "^2.4.1",
+    "commander": "^2.18.0",
     "exit": "^0.1.2",
-    "isutf8": "2.x",
-    "typograf": "6.x"
+    "isutf8": "^2.0.2",
+    "typograf": "^6.7.2"
   },
   "devDependencies": {
-    "eslint": "3.16.x"
+    "eslint": "^5.5.0"
   },
   "scripts": {
     "eslint": "./node_modules/.bin/eslint .",
