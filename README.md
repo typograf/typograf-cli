@@ -24,7 +24,7 @@ npm install typograf-cli -g
 
 `typograf -l ru -d "ru/punctuation/quote,common/nbsp/dpi" -e "ru/optalign/*" my_file.txt > new_my_file` — типографировать файл с отключёнными и включёнными правилами.
 
-`typograf -l ru --config typograf.config.json my_file.txt` — типографировать файл с настройками из конфигурационного файла.
+`typograf -l ru -c typograf.config.json my_file.txt` — типографировать файл с настройками из конфигурационного файла.
 
 `typograf --init-config` — создаёт конфигурационный файл `.typograf.config.json` в текущей папке.
 
@@ -52,6 +52,22 @@ npm install typograf-cli -g
 }
 ```
 Опции из командной строки имеют более высокий приоритет, чем из конфигурационного файла.
+
+Пример конфигурационного файла:
+```json
+{
+    "locale": ["ru", "en-US"],
+    "disableRule": ["common/nbsp/*"],
+    "enableRule": [],
+    "onlyJsonKeys": [],
+    "ignoreJsonKeys": ["comment", "phone"],
+    "htmlEntity": {
+        "type": "default",
+        "onlyInvisible": false
+    }
+}
+```
+
 
 ## [Лицензия](./LICENSE.md)
 MIT License
