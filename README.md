@@ -67,6 +67,7 @@ npm install typograf-cli -g
     }
 }
 ```
+[Список правил](https://github.com/typograf/typograf/blob/dev/docs/RULES.ru.md)
 
 
 ## [Лицензия](./LICENSE.md)
