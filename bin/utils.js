@@ -8,12 +8,13 @@ const
     isutf8 = require('isutf8'),
     lint = require('./lint'),
     printError = require('./printError'),
-    TypografObj = require('typograf'),
-    typograf = new TypografObj(),
-    defaultConfig = require('../typograf.json');
+    Typograf = require('typograf'),
+    defaultConfig = require('../typograf.json'),
+    DEFAULT_USER_CONFIG = '.typograf.json';
 
 function processText(text, prefs) {
     const isJSON = path.extname(prefs.filename.toLowerCase()) === '.json';
+    const typograf = new Typograf(prefs);
 
     if (prefs.lint) {
         !isJSON && lint.process(text, prefs);
@@ -21,7 +22,7 @@ function processText(text, prefs) {
         if (isJSON) {
             processJSON(text, prefs);
         } else {
-            process.stdout.write(typograf.execute(text, prefs));
+            process.stdout.write(typograf.execute(text));
         }
     }
 }
@@ -35,6 +36,7 @@ function processJSON(text, prefs) {
         exit(1);
     }
 
+    const typograf = new Typograf(prefs);
     const result = JSON.stringify(json, (key, value) => {
         let needTypography = true;
 
@@ -48,7 +50,7 @@ function processJSON(text, prefs) {
             }
 
             if (needTypography) {
-                value = typograf.execute(value, prefs);
+                value = typograf.execute(value);
             }
         }
 
@@ -64,8 +66,11 @@ module.exports = {
     },
 
     getConfig(file) {
+        let showError = true;
+
         if (!file) {
-            return null;
+            file = DEFAULT_USER_CONFIG;
+            showError = false;
         }
 
         if (fs.existsSync(file) && fs.statSync(file).isFile()) {
@@ -79,7 +84,7 @@ module.exports = {
             }
 
             return config;
-        } else {
+        } else if (showError) {
             printError(`${file}: no such file.`);
         }
 
