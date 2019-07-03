@@ -39,13 +39,17 @@
     "commander": "^2.20.0",
     "exit": "^0.1.2",
     "isutf8": "^2.0.3",
-    "typograf": "^6.8.2"
+    "typograf": "^6.8.2",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "eslint": "^5.16.0"
   },
   "scripts": {
     "eslint": "./node_modules/.bin/eslint .",
-    "test": "npm run-script eslint"
-  }
+    "test": "npm run-script eslint",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
+  },
+  "snyk": true
 }
