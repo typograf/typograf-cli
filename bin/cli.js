@@ -36,7 +36,9 @@ program
     .option('--no-colors', 'clean output without colors')    
     .parse(process.argv);
 
-chalk.enabled = program.colors;    
+if (!program.colors) {
+    chalk.level = 0;
+}
 
 if (program.initConfig) {
     const currentDir =  path.resolve('./');
