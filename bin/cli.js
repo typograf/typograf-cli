@@ -3,7 +3,7 @@
 'use strict';
 
 const
-    chalk = require('chalk'),
+    pico = require('picocolors'),
     exit = require('exit'),
     fs = require('fs'),
     path = require('path'),
@@ -33,12 +33,8 @@ program
     .option('--ignore-json-keys <keys>', 'Ignore JSON keys (separated by commas)', splitByCommas, null)
     .option('--html-entity-type <type>', 'HTML entities as: "digit" - &#160;, "name" - &nbsp, "default" - UTF-8 symbols')
     .option('--html-entity-only-invisible', 'Convert only invisible symbols to reqiured view')
-    .option('--no-colors', 'clean output without colors')    
+    .option('--no-color', 'clean output without colors')
     .parse(process.argv);
-
-if (!program.colors) {
-    chalk.level = 0;
-}
 
 if (program.initConfig) {
     const currentDir =  path.resolve('./');
@@ -51,7 +47,7 @@ if (program.initConfig) {
         exit(1);
     }
 }
-    
+
 
 if (!program.stdin && !program.args.length) {
     program.help();

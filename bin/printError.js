@@ -1,7 +1,7 @@
 'use strict';
 
-const chalk = require('chalk');
+const pico = require('picocolors');
 
 module.exports = function printError(text) {
-    console.error(chalk.red(text));
+    console.error(pico.red(text));
 };
