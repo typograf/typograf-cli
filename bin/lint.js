@@ -2,7 +2,7 @@
 
 const
     printError = require('./printError'),
-    chalk = require('chalk'),
+    pico = require('picocolors'),
     TypografObj = require('typograf'),
     TypografTitles = require('typograf/dist/typograf.titles.json'),
     isWin = process.platform === 'win32',
@@ -78,7 +78,7 @@ module.exports = {
 
             for (const e of errors) {
                 const pos = e.position || {};
-                printError(`- ${e.name}: ${getTitle(e.name)} ${chalk.cyan(`(${pos.line}:${pos.column})`)}`);
+                printError(`- ${e.name}: ${getTitle(e.name)} ${pico.cyan(`(${pos.line}:${pos.column})`)}`);
             }
         }
     }
