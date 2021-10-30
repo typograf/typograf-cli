@@ -14,6 +14,8 @@ npm install typograf-cli -g
 
 `typograf -l ru my_file.txt` — русская типографика.
 
+`typograf -l ru --lint my_file.txt` — линтинг файла.
+
 `typograf -l ru,en-US my_file.txt` — русская типографика, в тексте есть английские слова.
 
 `typograf -l en-US my_file.txt` — американская типографика.
