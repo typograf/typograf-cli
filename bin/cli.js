@@ -3,7 +3,6 @@
 'use strict';
 
 const
-    pico = require('picocolors'),
     exit = require('exit'),
     fs = require('fs'),
     path = require('path'),
@@ -21,16 +20,16 @@ function splitByCommas(str) {
 program
     .version(require('../package.json').version)
     .usage('[options] <file>')
-    .option('-l, --locale <locale>', `Set the locale for rules (separated by commas). Available locales: "${locales.join('", "')}"`, splitByCommas, [])
-    .option('-d, --disable-rule <rule>', 'Disable rules (separated by commas)', splitByCommas, null)
-    .option('-e, --enable-rule <rule>', 'Enable rules (separated by commas)', splitByCommas, null)
+    .option('-l, --locale <locale>', `Set the locale for rules (separated by commas). Available locales: "${locales.join('", "')}". Default: ru`, splitByCommas)
+    .option('-d, --disable-rule <rule>', 'Disable rules (separated by commas)', splitByCommas)
+    .option('-e, --enable-rule <rule>', 'Enable rules (separated by commas)', splitByCommas)
     .option('-c, --config <file>', 'Use configuration from this file')
-    .option('--lint', 'Alpha mode, lint text with selected rules - default: false')
-    .option('--stdin', 'Process text provided on <STDIN> - default: false')
+    .option('--lint', 'Alpha mode, lint text with selected rules')
+    .option('--stdin', 'Process text provided on <STDIN>')
     .option('--stdin-filename <file>', 'Specify filename to process STDIN as')
     .option('--init-config', 'Save default configuration in current directory')
-    .option('--only-json-keys <keys>', 'Only JSON keys (separated by commas)', splitByCommas, null)
-    .option('--ignore-json-keys <keys>', 'Ignore JSON keys (separated by commas)', splitByCommas, null)
+    .option('--only-json-keys <keys>', 'Only JSON keys (separated by commas)', splitByCommas)
+    .option('--ignore-json-keys <keys>', 'Ignore JSON keys (separated by commas)', splitByCommas)
     .option('--html-entity-type <type>', 'HTML entities as: "digit" - &#160;, "name" - &nbsp, "default" - UTF-8 symbols')
     .option('--html-entity-only-invisible', 'Convert only invisible symbols to reqiured view')
     .option('--no-color', 'clean output without colors')

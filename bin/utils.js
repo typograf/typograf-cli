@@ -28,6 +28,8 @@ function processText(text, prefs) {
 }
 
 function processJSON(text, prefs) {
+    const opts = program.opts();
+
     let json;
     try {
         json = JSON.parse(text);
@@ -41,11 +43,11 @@ function processJSON(text, prefs) {
         let needTypography = true;
 
         if (typeof value === 'string') {
-            if (program.onlyJsonKeys && program.onlyJsonKeys.indexOf(key) === -1) {
+            if (opts.onlyJsonKeys && opts.onlyJsonKeys.indexOf(key) === -1) {
                 needTypography = false;
             }
 
-            if (program.ignoreJsonKeys && program.ignoreJsonKeys.indexOf(key) > -1) {
+            if (opts.ignoreJsonKeys && opts.ignoreJsonKeys.indexOf(key) > -1) {
                 needTypography = false;
             }
 
@@ -91,16 +93,18 @@ module.exports = {
         return null;
     },
 
-    getPrefs(program, config) {
+    getPrefs(config) {
+        const opts = program.opts();
+
         const prefs = {
-            lint: program.lint,
-            locale: [],
+            lint: opts.lint,
+            locale: ['ru'],
             htmlEntity: {}
         };
 
         for (const key of ['enableRule', 'disableRule', 'locale']) {
-            if (typeof program[key] !== 'undefined') {
-                prefs[key] = program[key];
+            if (typeof opts[key] !== 'undefined') {
+                prefs[key] = opts[key];
             }
 
             if (config && typeof config[key] !== 'undefined') {
@@ -108,12 +112,12 @@ module.exports = {
             }
         }
 
-        if (typeof program.htmlEntityType !== 'undefined') {
-            prefs.htmlEntity.type = program.htmlEntityType;
+        if (typeof opts.htmlEntityType !== 'undefined') {
+            prefs.htmlEntity.type = opts.htmlEntityType;
         }
 
-        if (typeof program.htmlEntityOnlyVisible !== 'undefined') {
-            prefs.htmlEntity.onlyVisible = program.htmlEntityOnlyVisible;
+        if (typeof opts.htmlEntityOnlyVisible !== 'undefined') {
+            prefs.htmlEntity.onlyVisible = opts.htmlEntityOnlyVisible;
         }
 
         if (config && config.htmlEntity) {
