@@ -54,7 +54,7 @@ if (!program.stdin && !program.args.length) {
 
 const
     config = utils.getConfig(program.config),
-    prefs = utils.getPrefs(program, config);
+    prefs = utils.getPrefs(program.config);
 
 if (!prefs.locale.length) {
     printError('Error: required parameter locale.');
