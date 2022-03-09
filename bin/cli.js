@@ -2,16 +2,15 @@
 
 'use strict';
 
-const
-    exit = require('exit'),
-    fs = require('fs'),
-    path = require('path'),
-    program = require('commander'),
-    utils = require('./utils'),
-    printError = require('./printError'),
-    Typograf = require('typograf'),
-    locales = Typograf.getLocales(),
-    types = ['digit', 'name', 'default'];
+const exit = require('exit');
+const fs = require('fs');
+const path = require('path');
+const program = require('commander');
+const utils = require('./utils');
+const printError = require('./printError');
+const Typograf = require('typograf');
+const locales = Typograf.getLocales();
+const types = ['digit', 'name', 'default'];
 
 function splitByCommas(str) {
     return (str || '').split(/[,;]/).map(val => val.trim());
@@ -20,22 +19,25 @@ function splitByCommas(str) {
 program
     .version(require('../package.json').version)
     .usage('[options] <file>')
-    .option('-l, --locale <locale>', `Set the locale for rules (separated by commas). Available locales: "${locales.join('", "')}". Default: ru`, splitByCommas)
-    .option('-d, --disable-rule <rule>', 'Disable rules (separated by commas)', splitByCommas)
-    .option('-e, --enable-rule <rule>', 'Enable rules (separated by commas)', splitByCommas)
-    .option('-c, --config <file>', 'Use configuration from this file')
-    .option('--lint', 'Alpha mode, lint text with selected rules')
-    .option('--stdin', 'Process text provided on <STDIN>')
-    .option('--stdin-filename <file>', 'Specify filename to process STDIN as')
-    .option('--init-config', 'Save default configuration in current directory')
-    .option('--only-json-keys <keys>', 'Only JSON keys (separated by commas)', splitByCommas)
-    .option('--ignore-json-keys <keys>', 'Ignore JSON keys (separated by commas)', splitByCommas)
+    .option('-l, --locale <locale>', `set the locale for rules (separated by commas). Available locales: "${locales.join('", "')}". Default: ru`, splitByCommas)
+    .option('-d, --disable-rule <rule>', 'disable rules (separated by commas)', splitByCommas)
+    .option('-e, --enable-rule <rule>', 'enable rules (separated by commas)', splitByCommas)
+    .option('-c, --config <file>', 'use configuration from this file')
+    .option('--lint', 'alpha mode, lint text with selected rules')
+    .option('--stdin', 'process text provided on <STDIN>')
+    .option('--stdin-filename <file>', 'specify filename to process STDIN as')
+    .option('--init-config', 'save default configuration in current directory')
+    .option('--only-json-keys <keys>', 'only JSON keys (separated by commas)', splitByCommas)
+    .option('--ignore-json-keys <keys>', 'ignore JSON keys (separated by commas)', splitByCommas)
     .option('--html-entity-type <type>', 'HTML entities as: "digit" - &#160;, "name" - &nbsp, "default" - UTF-8 symbols')
-    .option('--html-entity-only-invisible', 'Convert only invisible symbols to reqiured view')
-    .option('--no-color', 'clean output without colors')
-    .parse(process.argv);
+    .option('--html-entity-only-invisible', 'convert only invisible symbols to reqiured view')
+    .option('--no-color', 'clean output without colors');
 
-if (program.initConfig) {
+program.parse(process.argv);
+
+const opts = program.opts();
+
+if (opts.initConfig) {
     const currentDir =  path.resolve('./');
     try {
         fs.writeFileSync('.typograf.json', utils.getDefaultConfigAsText());
@@ -47,14 +49,12 @@ if (program.initConfig) {
     }
 }
 
-
-if (!program.stdin && !program.args.length) {
+if (!opts.stdin && program.rawArgs.length < 3) {
     program.help();
 }
 
-const
-    config = utils.getConfig(program.config),
-    prefs = utils.getPrefs(config);
+const config = utils.getConfig(opts.config);
+const prefs = utils.getPrefs(config);
 
 if (!prefs.locale.length) {
     printError('Error: required parameter locale.');
@@ -73,8 +73,8 @@ if (types.indexOf(prefs.htmlEntity.type || 'default') === -1) {
     exit(1);
 }
 
-if (program.stdin) {
-    prefs.filename = program.stdinFilename || '';
+if (opts.stdin) {
+    prefs.filename = opts.stdinFilename || '';
     utils.processStdin(prefs, () => {
         exit(0);
     });
