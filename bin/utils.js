@@ -1,16 +1,15 @@
 'use strict';
 
-const
-    program = require('commander'),
-    exit = require('exit'),
-    fs = require('fs'),
-    path = require('path'),
-    isutf8 = require('isutf8'),
-    lint = require('./lint'),
-    printError = require('./printError'),
-    Typograf = require('typograf'),
-    defaultConfig = require('../typograf.json'),
-    DEFAULT_USER_CONFIG = '.typograf.json';
+const program = require('commander');
+const exit = require('exit');
+const fs = require('fs');
+const path = require('path');
+const isutf8 = require('isutf8');
+const lint = require('./lint');
+const printError = require('./printError');
+const Typograf = require('typograf');
+const defaultConfig = require('../typograf.json');
+const DEFAULT_USER_CONFIG = '.typograf.json';
 
 function processText(text, prefs) {
     const isJSON = path.extname(prefs.filename.toLowerCase()) === '.json';

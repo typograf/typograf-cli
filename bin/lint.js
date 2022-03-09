@@ -1,12 +1,11 @@
 'use strict';
 
-const
-    printError = require('./printError'),
-    pico = require('picocolors'),
-    TypografObj = require('typograf'),
-    TypografTitles = require('typograf/dist/typograf.titles.json'),
-    isWin = process.platform === 'win32',
-    errSym = isWin ? '[ERR]' : '✗';
+const printError = require('./printError');
+const pico = require('picocolors');
+const TypografObj = require('typograf');
+const TypografTitles = require('typograf/dist/typograf.titles.json');
+const isWin = process.platform === 'win32';
+const errSym = isWin ? '[ERR]' : '✗';
 
 function getTitle(rule) {
     const titles = TypografTitles[rule];
