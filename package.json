@@ -1,7 +1,7 @@
 {
   "name": "typograf-cli",
   "description": "CLI for Typograf",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "author": {
     "name": "Denis Seleznev",
     "email": "hcodes@yandex.ru",
