@@ -2,13 +2,18 @@
 
 const printError = require('./printError');
 const pico = require('picocolors');
+const path = require('path');
+const fs = require('fs');
 const TypografObj = require('typograf');
-const TypografTitles = require('typograf/dist/typograf.titles.json');
 const isWin = process.platform === 'win32';
 const errSym = isWin ? '[ERR]' : '✗';
 
+const typografModulePath = require.resolve('typograf');
+const titlesPath = path.join(path.dirname(typografModulePath), 'typograf.titles.json');
+const typografTitles = JSON.parse(fs.readFileSync(titlesPath, 'utf8'));
+
 function getTitle(rule) {
-    const titles = TypografTitles[rule];
+    const titles = typografTitles[rule];
     return titles && (titles.common || titles['en-US']);
 }
 
