@@ -1,7 +1,7 @@
 {
   "name": "typograf-cli",
   "description": "CLI for Typograf",
-  "version": "6.0.2",
+  "version": "6.1.0",
   "author": {
     "name": "Denis Seleznev",
     "email": "hcodes@yandex.ru",
@@ -36,13 +36,13 @@
   ],
   "dependencies": {
     "picocolors": "^1.0.0",
-    "commander": "^9.0.0",
+    "commander": "^9.5.0",
     "exit": "^0.1.2",
     "isutf8": "^4.0.0",
-    "typograf": "^6.14.1"
+    "typograf": "^7.0.0"
   },
   "devDependencies": {
-    "eslint": "^8.10.0"
+    "eslint": "^8.37.0"
   },
   "scripts": {
     "eslint": "./node_modules/.bin/eslint .",

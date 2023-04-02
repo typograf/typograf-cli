@@ -4,7 +4,7 @@ const printError = require('./printError');
 const pico = require('picocolors');
 const path = require('path');
 const fs = require('fs');
-const TypografObj = require('typograf');
+const Typograf = require('typograf');
 const isWin = process.platform === 'win32';
 const errSym = isWin ? '[ERR]' : '✗';
 
@@ -46,14 +46,13 @@ function getPosition(before, after) {
 
 module.exports = {
     process(text, prefs) {
-        const
-            typograf = new TypografObj(prefs),
-            enabledRules = [];
+        const typograf = new Typograf(prefs);
+        const enabledRules = [];
 
-        for (const rule of typograf._rules) {
+        for (const rule of Typograf.getRules()) {
             if (
                 typograf.isEnabledRule(rule.name) &&
-                (rule._lang === 'common' || prefs.locale.indexOf(rule._lang))
+                (rule.lang === 'common' || prefs.locale.indexOf(rule.lang))
             ) {
                 enabledRules.push(rule.name);
             }
@@ -61,9 +60,8 @@ module.exports = {
 
         const errors = [];
         for (const rule of enabledRules) {
-            typograf
-                .disableRule('*')
-                .enableRule(rule);
+            typograf.disableRule('*');
+            typograf.enableRule(rule);
 
             const result = typograf.execute(text);
 
