@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
-'use strict';
+import { readFileSync, writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 
-const exit = require('exit');
-const fs = require('fs');
-const path = require('path');
-const program = require('commander');
-const utils = require('./utils');
-const printError = require('./printError');
-const Typograf = require('typograf');
+import { program } from 'commander';
+import Typograf from 'typograf';
+
+import utils from './utils.mjs';
+import printError from './printError.mjs';
+
 const locales = Typograf.getLocales();
 const types = ['digit', 'name', 'default'];
 
@@ -17,7 +17,7 @@ function splitByCommas(str) {
 }
 
 program
-    .version(require('../package.json').version)
+    .version(JSON.parse(readFileSync('./package.json', 'utf8')).version)
     .usage('[options] <file>')
     .option('-l, --locale <locale>', `set the locale for rules (separated by commas). Available locales: "${locales.join('", "')}". Default: ru`, splitByCommas)
     .option('-d, --disable-rule <rule>', 'disable rules (separated by commas)', splitByCommas)
@@ -38,14 +38,14 @@ program.parse(process.argv);
 const opts = program.opts();
 
 if (opts.initConfig) {
-    const currentDir =  path.resolve('./');
+    const currentDir = resolve('./');
     try {
-        fs.writeFileSync('.typograf.json', utils.getDefaultConfigAsText());
+        writeFileSync('.typograf.json', utils.getDefaultConfigAsText());
         console.log(`Successfully created .typograf.json file in ${currentDir}`);
-        exit(0);
-    } catch(e) {
+        process.exit(0);
+    } catch {
         printError(`Can't save .typograf.json file in ${currentDir}`);
-        exit(1);
+        process.exit(1);
     }
 }
 
@@ -58,40 +58,40 @@ const prefs = utils.getPrefs(config);
 
 if (!prefs.locale.length) {
     printError('Error: required parameter locale.');
-    exit(1);
+    process.exit(1);
 }
 
 for (const locale of prefs.locale) {
     if (!Typograf.hasLocale(locale)) {
         printError(`Error: locale "${locale}" is not supported.`);
-        exit(1);
+        process.exit(1);
     }
 }
 
 if (types.indexOf(prefs.htmlEntity.type || 'default') === -1) {
     printError(`Error: mode "${prefs.htmlEntity.type}" is not supported.`);
-    exit(1);
+    process.exit(1);
 }
 
 if (opts.stdin) {
     prefs.filename = opts.stdinFilename || '';
     utils.processStdin(prefs, () => {
-        exit(0);
+        process.exit(0);
     });
 } else {
     prefs.filename = program.args[0];
 
     if (!prefs.filename) {
         printError(`Error: file isn't specified.`);
-        exit(1);
+        process.exit(1);
     }
 
     utils.processFile(prefs, (error, data) => {
         if (error) {
             printError(data);
-            exit(1);
+            process.exit(1);
         } else {
-            exit(0);
+            process.exit(0);
         }
     });
 }

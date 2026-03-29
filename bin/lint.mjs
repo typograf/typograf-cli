@@ -1,16 +1,18 @@
-'use strict';
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const printError = require('./printError');
-const pico = require('picocolors');
-const path = require('path');
-const fs = require('fs');
-const Typograf = require('typograf');
+import pico from 'picocolors';
+import Typograf from 'typograf';
+
+import printError from './printError.mjs';
+
 const isWin = process.platform === 'win32';
 const errSym = isWin ? '[ERR]' : '✗';
 
-const typografModulePath = require.resolve('typograf');
-const titlesPath = path.join(path.dirname(typografModulePath), 'typograf.titles.json');
-const typografTitles = JSON.parse(fs.readFileSync(titlesPath, 'utf8'));
+const typografModulePath = fileURLToPath(import.meta.resolve('typograf'));
+const titlesPath = join(dirname(typografModulePath), 'typograf.titles.json');
+const typografTitles = JSON.parse(readFileSync(titlesPath, 'utf8'));
 
 function getTitle(rule) {
     const titles = typografTitles[rule];
@@ -44,7 +46,7 @@ function getPosition(before, after) {
     };
 }
 
-module.exports = {
+export default {
     process(text, prefs) {
         const typograf = new Typograf(prefs);
         const enabledRules = [];

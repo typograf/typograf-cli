@@ -1,18 +1,18 @@
-'use strict';
+import { readFileSync, existsSync, statSync } from 'node:fs';
+import { extname } from 'node:path';
 
-const program = require('commander');
-const exit = require('exit');
-const fs = require('fs');
-const path = require('path');
-const isutf8 = require('isutf8');
-const lint = require('./lint');
-const printError = require('./printError');
-const Typograf = require('typograf');
-const defaultConfig = require('../typograf.json');
+import { program } from 'commander';
+
+import lint from './lint.mjs';
+import printError from './printError.mjs';
+import Typograf from 'typograf';
+
+const defaultConfig = JSON.parse(readFileSync('./typograf.json', 'utf8'));
+
 const DEFAULT_USER_CONFIG = '.typograf.json';
 
 function processText(text, prefs) {
-    const isJSON = path.extname(prefs.filename.toLowerCase()) === '.json';
+    const isJSON = extname(prefs.filename.toLowerCase()) === '.json';
     const typograf = new Typograf(prefs);
 
     if (prefs.lint) {
@@ -32,9 +32,9 @@ function processJSON(text, prefs) {
     let json;
     try {
         json = JSON.parse(text);
-    } catch(e) {
+    } catch {
         printError(`${prefs.filename}: error parsing.`);
-        exit(1);
+        process.exit(1);
     }
 
     const typograf = new Typograf(prefs);
@@ -61,7 +61,7 @@ function processJSON(text, prefs) {
     process.stdout.write(result);
 }
 
-module.exports = {
+export default {
     getDefaultConfigAsText() {
         return JSON.stringify(defaultConfig, ' ', 4);
     },
@@ -74,12 +74,12 @@ module.exports = {
             showError = false;
         }
 
-        if (fs.existsSync(file) && fs.statSync(file).isFile()) {
-            const text = fs.readFileSync(file, 'utf8');
+        if (existsSync(file) && statSync(file).isFile()) {
+            const text = readFileSync(file, 'utf8');
             let config;
             try {
                 config = JSON.parse(text);
-            } catch(e) {
+            } catch {
                 printError(`${file}: error parsing.`);
                 return null;
             }
@@ -146,11 +146,12 @@ module.exports = {
     processFile(prefs, callback) {
         const file = prefs.filename;
 
-        if (fs.existsSync(file) && fs.statSync(file).isFile()) {
-            const text = fs.readFileSync(file);
-            if (isutf8(text)) {
-                processText(text.toString(), prefs);
-            } else {
+        if (existsSync(file) && statSync(file).isFile()) {
+            const text = readFileSync(file);
+            const decoder = new TextDecoder('utf-8', { fatal: true });
+            try {
+                processText(decoder.decode(text), prefs);
+            } catch {
                 callback(true, `${file}: is not UTF-8.`);
             }
         } else {
@@ -160,3 +161,4 @@ module.exports = {
         callback(false);
     }
 };
+
