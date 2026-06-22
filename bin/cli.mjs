@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 import { readFileSync, writeFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { program } from 'commander';
 import Typograf from 'typograf';
@@ -9,6 +10,7 @@ import Typograf from 'typograf';
 import utils from './utils.mjs';
 import printError from './printError.mjs';
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const locales = Typograf.getLocales();
 const types = ['digit', 'name', 'default'];
 
@@ -17,7 +19,7 @@ function splitByCommas(str) {
 }
 
 program
-    .version(JSON.parse(readFileSync('./package.json', 'utf8')).version)
+    .version(JSON.parse(readFileSync(join(__dirname, '../package.json'), 'utf8')).version)
     .usage('[options] <file>')
     .option('-l, --locale <locale>', `set the locale for rules (separated by commas). Available locales: "${locales.join('", "')}". Default: ru`, splitByCommas)
     .option('-d, --disable-rule <rule>', 'disable rules (separated by commas)', splitByCommas)
