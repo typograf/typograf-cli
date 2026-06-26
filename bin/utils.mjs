@@ -1,5 +1,6 @@
 import { readFileSync, existsSync, statSync } from 'node:fs';
-import { extname } from 'node:path';
+import { dirname, extname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { program } from 'commander';
 
@@ -7,7 +8,8 @@ import lint from './lint.mjs';
 import printError from './printError.mjs';
 import Typograf from 'typograf';
 
-const defaultConfig = JSON.parse(readFileSync('./typograf.json', 'utf8'));
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const defaultConfig = JSON.parse(readFileSync(join(__dirname, '../typograf.json'), 'utf8'));
 
 const DEFAULT_USER_CONFIG = '.typograf.json';
 
